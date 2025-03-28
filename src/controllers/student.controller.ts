@@ -38,7 +38,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const createUser = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   const { firstName, lastName, studentClassId } = req.body;
 
@@ -81,7 +81,7 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
       where: {
         id: userId,
       },
-    }
+    },
   );
   log.log(`Student Updated with id: ${userId}`);
   res.status(204).json({ ...student, status: "success" });

@@ -1,55 +1,59 @@
-import { Model, DataTypes, Optional } from "sequelize"
-import { sequelize } from "../config/database"
+import { Model, DataTypes, Optional } from "sequelize";
+import { sequelize } from "../config/database";
 import User from "./student.model";
 
 interface PhotoAttributes {
-    id: string;
-    data: Buffer;
-    mimetype: string;
-    userId: string;
+  id: string;
+  data: Buffer;
+  mimetype: string;
+  userId: string;
 }
 
-interface PhotoCreationAttributes extends Optional<PhotoAttributes, 'id'> { }
+interface PhotoCreationAttributes extends Optional<PhotoAttributes, "id"> {}
 
-class Photo extends Model<PhotoAttributes, PhotoCreationAttributes> implements PhotoAttributes {
-    public id!: string;
-    public data!: Buffer;
-    public mimetype!: string;
-    public userId!: string;
+class Photo
+  extends Model<PhotoAttributes, PhotoCreationAttributes>
+  implements PhotoAttributes
+{
+  public id!: string;
+  public data!: Buffer;
+  public mimetype!: string;
+  public userId!: string;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 
-    public readonly user?: User;
+  public readonly user?: User;
 }
 
-Photo.init({
+Photo.init(
+  {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
     data: {
-        type: DataTypes.BLOB('long'),
-        allowNull: false
+      type: DataTypes.BLOB("long"),
+      allowNull: false,
     },
     mimetype: {
-        type: DataTypes.STRING,
-        allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     userId: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-            model: User,
-            key: 'id'
-        }
-    }
-}, {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: User,
+        key: "id",
+      },
+    },
+  },
+  {
     sequelize,
-    modelName: 'Photo'
-})
-
-
+    modelName: "Photo",
+  },
+);
 
 export default Photo;

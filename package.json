@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "multer": "^1.4.5-lts.1",
+    "prettier": "^3.5.2",
     "sequelize": "^6.37.5",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",

@@ -1,40 +1,43 @@
 import { Model, Optional, DataTypes } from "sequelize";
 import User from "./student.model";
-import { sequelize } from '../config/database';
+import { sequelize } from "../config/database";
 
 interface ClassAttributes {
-    id: string;
-    value: string;
+  id: string;
+  value: string;
 }
 
-interface ClassAttributesCration extends Optional<ClassAttributes, 'id'> {}
+interface ClassAttributesCration extends Optional<ClassAttributes, "id"> {}
 
-class StudentClass extends Model<ClassAttributes, ClassAttributesCration> implements ClassAttributes {
-    public id!: string;
-    public value!: string;
+class StudentClass
+  extends Model<ClassAttributes, ClassAttributesCration>
+  implements ClassAttributes
+{
+  public id!: string;
+  public value!: string;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 
-    public readonly students?: User[];
+  public readonly students?: User[];
 }
 
-StudentClass.init({
+StudentClass.init(
+  {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
     value: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
-}, {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
     sequelize,
-    modelName: 'Class'
-});
-
-
-
+    modelName: "Class",
+  },
+);
 
 export default StudentClass;

@@ -4,7 +4,7 @@ import { log } from "..";
 
 export const getClasses = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   log.log("New Request to GET ALL CLASSES");
   const classes = await StudentClass.findAll();
