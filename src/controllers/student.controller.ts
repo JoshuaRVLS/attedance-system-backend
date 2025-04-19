@@ -38,7 +38,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
 
 export const createUser = async (
   req: Request,
-  res: Response,
+  res: Response
 ): Promise<void> => {
   const { firstName, lastName, studentClassId } = req.body;
 
@@ -72,18 +72,28 @@ export const createUser = async (
 };
 
 export async function updateUser(req: Request, res: Response): Promise<void> {
-  const { id: userId } = req.params;
+  const { id } = req.params;
   const student = await Student.update(
     {
       isPresent: true,
     },
     {
       where: {
-        id: userId,
+        id,
       },
-    },
+    }
   );
-  log.log(`Student Updated with id: ${userId}`);
+  log.log(`Student Updated with id: ${id}`);
   res.status(204).json({ ...student, status: "success" });
-  io.emit("newPresentStudent", userId);
+  io.emit("newPresentStudent", id);
+}
+export async function getPhotoById(req: Request, res: Response): Promise<void> {
+  const { id } = req.params;
+  const photo = await Photo.findOne({
+    where: {
+      $userId$: id,
+    },
+  });
+  log.log("Get photo by id: " + id);
+  res.status(200).json(photo);
 }
