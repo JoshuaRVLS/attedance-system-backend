@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Student from "../models/student.model";
 import Photo from "../models/photo.model";
-import { io, log } from "..";
+import { log } from "..";
 import StudentClass from "../models/class.model";
 
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
@@ -68,7 +68,6 @@ export const createUser = async (
 
   log.log(`Student added with ID: ${student.id}`);
   res.status(201).json(student.toJSON());
-  io.emit("newStudent");
 };
 
 export async function updateUser(req: Request, res: Response): Promise<void> {
@@ -85,7 +84,6 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
   );
   log.log(`Student Updated with id: ${id}`);
   res.status(204).json({ ...student, status: "success" });
-  io.emit("newPresentStudent", id);
 }
 export async function getPhotoById(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
